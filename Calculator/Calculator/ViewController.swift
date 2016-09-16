@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         else
         {
             display.text = digit
-            historyLabel.text = digit
+            historyLabel.text = historyLabel.text! + digit
             userIsInTheMiddleOfTypingANumber = true
         }
         
@@ -103,7 +103,7 @@ class ViewController: UIViewController {
         {
             displayValue = operation(operandStack.removeLast())
          
-
+            
             
             
             
@@ -120,11 +120,7 @@ class ViewController: UIViewController {
         operandStack.append(displayValue)
         print("operandStack=\(operandStack)")
         
-        
-        
-        
-        
-        
+     
         
     
     }
@@ -138,6 +134,9 @@ class ViewController: UIViewController {
         set{
             display.text = "\(newValue)"
             userIsInTheMiddleOfTypingANumber = false
+            
+            historyLabel.text = historyLabel.text! + display.text!
+            
             
         }
         
