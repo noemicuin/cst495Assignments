@@ -14,6 +14,11 @@ class ViewController: UIViewController {
    
     @IBOutlet weak var display: UILabel!
     
+    
+    
+    @IBOutlet weak var historyLabel: UILabel!
+    
+    
     var userIsInTheMiddleOfTypingANumber : Bool = false
 
     @IBAction func appendDigit(sender: UIButton) {
@@ -23,19 +28,31 @@ class ViewController: UIViewController {
         if userIsInTheMiddleOfTypingANumber
         {
            display.text = display.text! + digit
+           //historyLabel.text = display.text! + digit
         }
         else
         {
             display.text = digit
+            historyLabel.text = digit
             userIsInTheMiddleOfTypingANumber = true
         }
+        
+        
+        
+        
+        
+        
     }
     
     @IBAction func operate(sender: UIButton) {
         
         let operation = sender.currentTitle!
+        historyLabel.text = historyLabel.text! + operation
         
         if userIsInTheMiddleOfTypingANumber{
+            display.text = sender.currentTitle!
+            historyLabel.text = historyLabel.text! + operation
+
             enter()
         }
         
@@ -56,6 +73,21 @@ class ViewController: UIViewController {
     
     }
     
+    @IBAction func clearButton() {
+    
+        display.text = "0"
+        
+        operandStack.removeAll()
+    
+
+    }
+    
+    
+    
+    
+    
+    
+    
     private func performOperation(operation: (Double, Double) -> Double)
     {
         if(operandStack.count>=2)
@@ -70,6 +102,11 @@ class ViewController: UIViewController {
         if(operandStack.count>=1)
         {
             displayValue = operation(operandStack.removeLast())
+         
+
+            
+            
+            
             enter()
         }
     }
@@ -82,6 +119,13 @@ class ViewController: UIViewController {
         userIsInTheMiddleOfTypingANumber = false
         operandStack.append(displayValue)
         print("operandStack=\(operandStack)")
+        
+        
+        
+        
+        
+        
+        
     
     }
     
