@@ -25,9 +25,10 @@ class ViewController: UIViewController {
         
         let digit = sender.currentTitle!
         
-        if userIsInTheMiddleOfTypingANumber
-        {
+       if userIsInTheMiddleOfTypingANumber && digit != "."  || (digit == "." && display.text!.range(of: ".") == nil)
+       {
            display.text = display.text! + digit
+           userIsInTheMiddleOfTypingANumber = true
            //historyLabel.text = display.text! + digit
         }
         else
@@ -37,10 +38,7 @@ class ViewController: UIViewController {
             userIsInTheMiddleOfTypingANumber = true
         }
         
-        
-        
-        
-        
+       
         
     }
     
@@ -75,17 +73,14 @@ class ViewController: UIViewController {
     
     @IBAction func clearButton() {
     
-        display.text = "0"
-        
+        display.text =  " "
+        historyLabel.text = " "
+        displayValue = 0
+        userIsInTheMiddleOfTypingANumber = false
         operandStack.removeAll()
     
 
     }
-    
-    
-    
-    
-    
     
     
     private func performOperation(operation: (Double, Double) -> Double)
@@ -103,10 +98,7 @@ class ViewController: UIViewController {
         {
             displayValue = operation(operandStack.removeLast())
          
-            
-            
-            
-            
+          
             enter()
         }
     }
@@ -119,9 +111,6 @@ class ViewController: UIViewController {
         userIsInTheMiddleOfTypingANumber = false
         operandStack.append(displayValue)
         print("operandStack=\(operandStack)")
-        
-     
-        
     
     }
     
